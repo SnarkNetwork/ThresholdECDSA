@@ -85,7 +85,6 @@ public class MultiTrapdoorCommitment {
 
 	static boolean DDHTest(Point a, Point b, Point c, Point generator,
 			Pairing pairing) {
-		EllipticCurve curve = pairing.getCurve();
 		return pairing.compute(a, b).equals(pairing.compute(generator, c));
 
 
@@ -97,7 +96,7 @@ public class MultiTrapdoorCommitment {
 		Pairing pairing = Predefined.ssTate();
 
 		//get P, which is a random point in group G1
-		Random rnd = new SecureRandom();
+		SecureRandom rnd = new SecureRandom();
 		
 		EllipticCurve G = pairing.getCurve();
 		Point g = G.getBasePoint(rnd, pairing.getGroupOrder(), pairing.getCofactor());
@@ -129,6 +128,14 @@ public class MultiTrapdoorCommitment {
 //		System.out.println(DDHTest(a, b, c, g, pairing));
 	return new MultiTrapdoorMasterPublicKey(g, q, h, pairing);
 
+	}
+  
+  public Open<BigInteger> getOpen(){
+		return open;
+	}
+  
+	public Commitment getCommitment() {
+		return commitment;
 	}
 
 	public static void main(String[] args) {
